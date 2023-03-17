@@ -8,6 +8,7 @@ public class CardGame
     private string locked_cards_choice;
     private char lock_1 = '1';
     private char lock_0 = '0';
+    public int console_line_location_scoreboard;
 
     public class Yarr_Card
     {
@@ -15,7 +16,7 @@ public class CardGame
         public string suit;
         public int value;
         public bool locked;
-        public int console_line_location;
+        public int console_line_location_card;
     }
 
 
@@ -41,13 +42,22 @@ public class CardGame
         Console.WriteLine("And correlating suits to get a higher score");
         Console.WriteLine("Use '1' for locked and '0' for unlocked");
         Console.WriteLine("Example: '01001' would lock the 2nd and 5th card");
+
+        Console.WriteLine();
+        console_line_location_scoreboard = Console.CursorTop;
+        Console.WriteLine("Oney Ones      - ");
+        Console.WriteLine("Twoey Twos     - ");
+        Console.WriteLine("Threey Threes  - ");
+        Console.WriteLine("Foury Fours    - ");
+        Console.WriteLine("Fivey Fives    - ");
+        Console.WriteLine("Sixy Sixes     - ");
         Console.WriteLine();
 
         for (int i = 0; i < 5; i++)
         {
             cards[i] = new Yarr_Card();
             cards[i].locked = false;
-            cards[i].console_line_location = Console.CursorTop;
+            cards[i].console_line_location_card = Console.CursorTop;
             Console.WriteLine("Pos " + cards[i].position + ": " + cards[i].value + " " + cards[i].suit);
         }
     }
@@ -56,7 +66,7 @@ public class CardGame
     {
         for (int i = 0; i < 5; i++)
         {
-            Console.SetCursorPosition(0, cards[i].console_line_location);
+            Console.SetCursorPosition(0, cards[i].console_line_location_card);
             Console.Write("\r" + new string(' ', Console.WindowWidth - 1) + "\r");
             Console.WriteLine("Pos " + cards[i].position + ": " + cards[i].value + " " + cards[i].suit);
         }
@@ -96,20 +106,38 @@ public class CardGame
         }
     }
 
+    void update_scoreboard()
+    {
+        Console.WriteLine();
+        Console.SetCursorPosition(0, console_line_location_scoreboard);
+        Console.WriteLine("Oney Ones      - ");
+        Console.WriteLine("Twoey Twos     - ");
+        Console.WriteLine("Threey Threes  - ");
+        Console.WriteLine("Foury Fours    - ");
+        Console.WriteLine("Fivey Fives    - ");
+        Console.WriteLine("Sixy Sixes     - ");
+        Console.WriteLine();
+
+    }
+
     void play_game()
     {
         //Initialise the Yarr card objects
         //Send introductory tutorial of game
         initialise();
 
-        //Rerolling stage of the CardGame
-        reroll_stage();
+        for (int j = 0; j < 6; j++)
+        {
+            //Update Hands score board
+            update_scoreboard();
+            //Rerolling stage of the CardGame
+            reroll_stage();
 
-        //Save total to Match 1-6
+            //Save total to Match 1-6
 
-        //Opponents turn
+            //Opponents turn
+        }
     }
-
 
     static void Main(string[] args)
     {
