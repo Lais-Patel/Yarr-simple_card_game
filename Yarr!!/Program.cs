@@ -15,7 +15,9 @@ public class CardGame
         public string suit;
         public int value;
         public bool locked;
+        public int console_line_location;
     }
+
 
     void roll_new_cards()
     {
@@ -45,6 +47,8 @@ public class CardGame
         {
             cards[i] = new Yarr_Card();
             cards[i].locked = false;
+            cards[i].console_line_location = Console.CursorTop;
+            Console.WriteLine("Pos " + cards[i].position + ": " + cards[i].value + " " + cards[i].suit);
         }
     }
 
@@ -52,6 +56,8 @@ public class CardGame
     {
         for (int i = 0; i < 5; i++)
         {
+            Console.SetCursorPosition(0, cards[i].console_line_location);
+            Console.Write("\r" + new string(' ', Console.WindowWidth - 1) + "\r");
             Console.WriteLine("Pos " + cards[i].position + ": " + cards[i].value + " " + cards[i].suit);
         }
     }
@@ -61,6 +67,8 @@ public class CardGame
         Console.WriteLine();
         Console.Write("Which cards do you want to lock - ");
         locked_cards_choice = Console.ReadLine();
+        Console.SetCursorPosition(0, Console.CursorTop-1);
+        Console.Write("\r" + new string(' ', Console.WindowWidth - 1) + "\r");
         Console.WriteLine();
         for (int i = 0; i < 5; i++)
         {
@@ -91,10 +99,15 @@ public class CardGame
     void play_game()
     {
         //Initialise the Yarr card objects
+        //Send introductory tutorial of game
         initialise();
 
         //Rerolling stage of the CardGame
         reroll_stage();
+
+        //Save total to Match 1-6
+
+        //Opponents turn
     }
 
 
